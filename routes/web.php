@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\main\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// User
+//Route::get('/changePassword', "main\UserController@showChangePasswordForm");
+//Route::post('/changePassword','main\UserController@changePassword')->name('changePassword');
+Route::get('/recoverPassword', [UserController::class, 'showRecoverPasswordForm'])->name('goToRecover');
+Route::post('/recoverPassword', [UserController::class, 'recoverPassword'])->name('recoverPassword');
