@@ -14,13 +14,15 @@ use App\Http\Controllers\main\UserController;
 |
 */
 
+// Default Laravel home screen
 Route::get('/', function () {
     return view('welcome');
 });
 
+// Authentication routes. Automatically generated.
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Offers and Promotional codes. WIP.
 
 // User
 Route::get('/changePassword', [UserController::class, 'showChangePasswordForm'])->name('goToChange');
