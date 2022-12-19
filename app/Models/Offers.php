@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Offers extends Model {
-    use SoftDeletes; // Allows restoring data easily.
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'description',
-        'generated'
+        'type',
+        'description'
     ];
 }

@@ -24,12 +24,20 @@ Route::get('/', function () {
 Auth::routes();
 
 // Dashboard, Offers and Promotional codes. WIP.
-Route::get('/home', [OffersController::class, 'homepage'])->name('home');
-Route::get('/offers', [OffersController::class, 'showOffersPage'])->name('goToOffers');
-Route::get('/details', [OffersController::class, 'showDetailsPage'])->name('goToDetails');
+Route::controller(OffersController::class)->group(function() {
+    Route::get('/home', 'homepage')->name('home');
+    Route::get('/offers', 'showOffersPage')->name('goToOffers');
+    Route::get('/details', 'showDetailsPage')->name('goToDetails');
+    Route::get('/createOffer', 'showCreateOfferForm')->name('goToCreateOffer');
+    Route::post('/createOffer', 'createOffer')->name('createOffer');
+    Route::get('/generateCode', 'generatePromotionalCode')->name('generateCode');
+    Route::get('/redeemCode/{id}', 'redeemPromotionalCode')->name('redeemCode');
+});
 
-// User
-Route::get('/changePassword', [UserController::class, 'showChangePasswordForm'])->name('goToChange');
-Route::post('/changePassword',[UserController::class, 'changePassword'])->name('changePassword');
-Route::get('/recoverPassword', [UserController::class, 'showRecoverPasswordForm'])->name('goToRecover');
-Route::post('/recoverPassword', [UserController::class, 'recoverPassword'])->name('recoverPassword');
+// User Authentication Control
+Route::controller(UserController::class)->group(function() {
+    Route::get('/changePassword', 'showChangePasswordForm')->name('goToChange');
+    Route::post('/changePassword', 'changePassword')->name('changePassword');
+    Route::get('/recoverPassword', 'showRecoverPasswordForm')->name('goToRecover');
+    Route::post('/recoverPassword', 'recoverPassword')->name('recoverPassword');
+});

@@ -9,6 +9,9 @@
 
     <title>{{ config('app.name', 'User History') }}</title>
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
@@ -61,6 +64,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" id="pruebas">
                                     <a class="dropdown-item" href="{{url('/changePassword/')}}">Change Password</a>
+                                    <a class="dropdown-item" href="{{url('/createOffer/')}}">Create Offer</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>

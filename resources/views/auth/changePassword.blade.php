@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
             <div class="panel panel-default">
-                <div class="panel-heading"><h1>Change password</h1></div>
+                <div class="panel-heading"><h1>Change Password</h1></div>
 
                 <div class="panel-body">
                     @if (session('error'))
@@ -18,6 +18,8 @@
                             {{ session('success') }}
                         </div>
                     @endif
+                </div>
+                <div class="body">
                     <form class="form-horizontal" method="POST" action="{{ route('changePassword') }}">
                         {{ csrf_field() }}
 
