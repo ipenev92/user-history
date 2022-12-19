@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\main;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller {
     /**
@@ -40,9 +40,10 @@ class UserController extends Controller {
      * recoverPassword
      * 
      * @param \Illuminate\Http\Request $request
-     * recieves data from /recoverPassword (POST).
+     * Recieves data from /recoverPassword (POST).
      * Finds the user via the E-mail provided. Checks if user's Secret Question and Answer
      * are equal to the ones provided. In case that they are, password is updated.
+     * Redirects to Login if successful. Back if fails.
      */
     public function recoverPassword(Request $request) {
         $user = User::where('email', $request->get('email'))->get()[0];
@@ -50,7 +51,7 @@ class UserController extends Controller {
         if ($user->question == $request->get('question') && $user->answer == $request->get('answer')) {
             $user->password = bcrypt($request->get('new_password'));
             $user->save();
-            return redirect()->back()->with("success", "Password reset successfully!");
+            return redirect()->route('login')->with("success", "Password reset successfully!");
         } else {
             return redirect()->back()->with("error", "One or more parameters are incorrect.");
         }
@@ -60,7 +61,9 @@ class UserController extends Controller {
      * changePassword
      * 
      * @param \Illuminate\Http\Request $request
+     * Receives data from /changePassword (POST).
      * Allows the user to change their password. Requires the user to be Authenticated.
+     * Redirects to Dashboard if successful. Back if fails.
      */
     public function changePassword(Request $request) { 
         if (!(Hash::check($request->get('current-password'), Auth::user()->password))) {
@@ -83,6 +86,6 @@ class UserController extends Controller {
         $user->password = bcrypt($request->get('new-password'));
         $user->save();
 
-        return redirect()->back()->with("success", "Password changed successfully!");
+        return redirect()->route('home')->with("success", "Password changed successfully!");
     }
 }

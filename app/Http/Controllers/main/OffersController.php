@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\main;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Codes;
 use App\Models\Offers;
 use Auth;
+use Illuminate\Http\Request;
 
 class OffersController extends Controller {
     /**
@@ -28,7 +28,7 @@ class OffersController extends Controller {
 
      /**
      * showOffersPage
-     * redirects to /offers, which is the page in which we will see the offers available.
+     * Redirects to /offers, which is the page in which we will see the offers available.
      */
     public function showOffersPage() {
         $offers = Offers::all();
@@ -37,7 +37,7 @@ class OffersController extends Controller {
 
      /**
      * showDetailsPage
-     * redirects to /details, which is where we will see the list of promotional codes
+     * Redirects to /details, which is where we will see the list of promotional codes
      * available and where we can redeem a code.
      */
     public function showDetailsPage() {
@@ -47,19 +47,30 @@ class OffersController extends Controller {
 
     /**
      * showCreateOfferForm
-     * redirects to /createOffer, which is where we are able to create offers. Usually,
+     * Redirects to /createOffer, which is where we are able to create offers. Usually,
      * only an authorized user should be able to do this.
      */
     public function showCreateOfferForm() {
         return view('user.createOffer');
     }
 
+    /**
+     * createOffer
+     * @param  \Illuminate\Http\Request $request
+     * Receives data from /createOffer (POST).
+     * Creates an Offer and then redirects us back to Offers.
+     */
     public function createOffer(Request $request) {
         $offer = Offers::create($request->all());
 
         return redirect()->route('goToOffers')->with("success", "Offer created successfully!");
     }
 
+    /**
+     * generatePromotionalCode
+     * Creates a promotional code that can be redeemed.
+     * Redirects to Offers.
+     */
     public function generatePromotionalCode() {
         $code = Codes::create([
             'code' => $this->generateRandomString(16),
@@ -70,6 +81,10 @@ class OffersController extends Controller {
         return redirect()->route('goToOffers')->with("success", "Code generated successfully!");
     }
 
+    /**
+     * generateRandomString
+     * Generates a random string for the promotional codes.
+     */
     public function generateRandomString($length) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -80,6 +95,11 @@ class OffersController extends Controller {
         return $randomString;
     }
 
+    /**
+     * redeemPromotionalCode
+     * Redeems a promotional code.
+     * Redirects to Details.
+     */
     public function redeemPromotionalCode($id) {
         $code = Codes::find($id);
         $code->is_redeemed = 1;
