@@ -30,6 +30,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
+                        <!-- Only seen by users that are logged in -->
+                        @auth
+                            <li><a class="nav-link" href="{{ route('goToOffers') }}">{{ __('Offers') }}</a></li>
+                            <li><a class="nav-link" href="{{ route('goToDetails') }}">{{ __('Details') }}</a></li>
+                        @endauth
 
                     </ul>
 

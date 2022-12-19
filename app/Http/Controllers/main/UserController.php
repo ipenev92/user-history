@@ -17,7 +17,7 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function __invoke(Request $request) {
-        //
+        
     }
 
     /**

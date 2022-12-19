@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\main\UserController;
+use App\Http\Controllers\main\OffersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,10 @@ Route::get('/', function () {
 // Authentication routes. Automatically generated.
 Auth::routes();
 
-// Offers and Promotional codes. WIP.
+// Dashboard, Offers and Promotional codes. WIP.
+Route::get('/home', [OffersController::class, 'homepage'])->name('home');
+Route::get('/offers', [OffersController::class, 'showOffersPage'])->name('goToOffers');
+Route::get('/details', [OffersController::class, 'showDetailsPage'])->name('goToDetails');
 
 // User
 Route::get('/changePassword', [UserController::class, 'showChangePasswordForm'])->name('goToChange');
